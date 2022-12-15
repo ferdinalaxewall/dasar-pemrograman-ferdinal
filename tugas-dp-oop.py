@@ -148,7 +148,6 @@ def validasi_kelas_kereta(kelas):
 def validasi_jenis_kereta(jenis, kelas):
     # Mengubah nilai jenis kereta yang diinputkan menjadi uppercase, untuk menangani input yang tidak ter-CapsLock
     jenis = jenis.upper()
-
     
     # Jika true pada 3 Kondisi yang ditentukan, maka mengembalikan sebuah dictionary yang berisi kata kunci jenis dan tarif. Tarif diambil dari class Referensi berdasarkan jenis yang diinputkan dan index yang inputkan pada input kelas sebelumnya
     if jenis == "B":
@@ -198,6 +197,32 @@ def form_input(i, jumlah_data):
         print(ValueError('Input yang anda masukkan salah, mohon mulai dari awal'))
         form_input(i, jumlah_data)
 
+def input_jumlah_data():
+    # Input jumlah data yang akan diinputkan
+    jumlah_data = int(input("Jumlah Data : "))
+    if(jumlah_data > 0):
+        return jumlah_data
+    else:
+        raise ValueError('Jumlah data minimal 1!')
+
+def start_program():
+    try:
+        
+        # Input jumlah data yang akan diinputkan
+        jumlah_data = input_jumlah_data()
+
+        # Melakukan perulangan sebanyak jumlah data yang diinputkan
+        for i in range(jumlah_data):
+            # Memanggil fungsi form_input dengan mengisi parameternya dengan index dari perulangan, dan jumlah data yang sudah diinputkan sebelumnya
+            form_input(i, jumlah_data)
+
+        # Menampilkan Seluruh Data yang sudah user/pengguna inputkan sebelumnya
+        data.tampilkan_data(date.today().strftime('%d %B %Y'))
+    except:
+        # Jika terjadi kesalahan input di jumlah data, maka input akan diulang kembali
+        print(ValueError("Jumlah data harus berupa angka dan minimal 1!"))
+        start_program()
+
 # Form Pengisian Data
 print("Form Penginputan Data".center(75))
 
@@ -205,13 +230,5 @@ print("Form Penginputan Data".center(75))
 tanggal_input = f"Tanggal Input : {date.today().strftime('%d %B %Y')}"
 print(tanggal_input)
 
-# Input jumlah data yang akan diinputkan
-jumlah_data = int(input("Jumlah Data : "))
-
-# Melakukan perulangan sebanyak jumlah data yang diinputkan
-for i in range(jumlah_data):
-    # Memanggil fungsi form_input dengan mengisi parameternya dengan index dari perulangan, dan jumlah data yang sudah diinputkan sebelumnya
-    form_input(i, jumlah_data)
-
-# Menampilkan Seluruh Data yang sudah user/pengguna inputkan sebelumnya
-data.tampilkan_data(date.today().strftime('%d %B %Y'))
+# Menjalankan Program
+start_program()
